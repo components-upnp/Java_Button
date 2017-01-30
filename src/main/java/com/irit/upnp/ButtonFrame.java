@@ -31,11 +31,13 @@ public class ButtonFrame extends javax.swing.JFrame {
     
     private State currentState;
     private LocalService<Button> switchPowerService;
+    private boolean status;
     
     private void init(LocalService<Button> buttonService) {
         this.currentState = State.INIT;
         activate(button);
-        this.switchPowerService =buttonService; 
+        this.switchPowerService =buttonService;
+        this.status = true;
     }
     
     /**
@@ -91,7 +93,8 @@ public class ButtonFrame extends javax.swing.JFrame {
         
         switch(this.currentState) {
             case INIT:
-                this.switchPowerService.getManager().getImplementation().setTarget(true);
+                this.status = !status;
+                this.switchPowerService.getManager().getImplementation().setTarget(this.status);
                 break;
         }
     }//GEN-LAST:event_buttonActionPerformed
